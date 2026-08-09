@@ -405,11 +405,11 @@ function clearUploadedImage() {
 }
 
 // ---------- API 调用 ----------
-// 统一走本地 /api 代理（服务端转发到 AI 接口），避免浏览器跨域问题
+// 统一走同源 api/chat.php、api/image.php 代理（服务端转发到 AI 接口），避免浏览器跨域问题
 
 // 对话：流式输出
 async function* streamChat(messages, cfg) {
-  const resp = await fetch('/api/chat', {
+  const resp = await fetch('api/chat.php', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ apiUrl: cfg.apiUrl, apiKey: cfg.apiKey, model: cfg.model, messages }),
@@ -443,7 +443,7 @@ async function* streamChat(messages, cfg) {
 
 // 生图：一次请求返回图片 URL（或 base64）；可携带上传的参考图（图生图/图片编辑）
 async function generateImage(prompt, cfg, imageDataUrl) {
-  const resp = await fetch('/api/image', {
+  const resp = await fetch('api/image.php', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ apiUrl: cfg.apiUrl, apiKey: cfg.apiKey, model: cfg.model, prompt, image: imageDataUrl || null }),
