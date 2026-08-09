@@ -7,6 +7,8 @@ const $ = (sel) => document.querySelector(sel);
 const els = {
   newChat: $('#new-chat-btn'),
   convList: $('#conv-list'),
+  menuBtn: $('#menu-btn'),
+  sidebarOverlay: $('#sidebar-overlay'),
   topbarTitle: $('#topbar-title'),
   themeToggle: $('#theme-toggle'),
   settingsBtn: $('#settings-btn'),
@@ -57,8 +59,8 @@ function makeImgAction(className, title, icon, handler) {
 
 // ---------- 状态 ----------
 let settings = {
-  chat: { apiUrl: '', apiKey: '', model: 'gpt-4o-mini' },
-  image: { apiUrl: '', apiKey: '', model: 'gpt-image-1' },
+  chat: { apiUrl: '', apiKey: '', model: 'gpt-5.5' },
+  image: { apiUrl: '', apiKey: '', model: 'gpt-image-2' },
 };
 let conversations = [];
 let activeId = null;
@@ -306,11 +308,17 @@ function editImage(src) {
 }
 
 // ---------- 对话切换 / 新建 / 删除 ----------
+// 移动端抽屉侧边栏
+function closeSidebar() {
+  document.body.classList.remove('menu-open');
+}
+
 function setActive(id) {
   if (sending) return;
   activeId = id;
   saveData();
   renderAll();
+  closeSidebar();
 }
 
 function newConversationHandler() {
@@ -321,6 +329,7 @@ function newConversationHandler() {
   saveData();
   renderAll();
   els.input.focus();
+  closeSidebar();
 }
 
 function deleteConversation(id) {
@@ -555,12 +564,12 @@ function saveSettings() {
   settings.chat = {
     apiUrl: els.chatUrl.value.trim(),
     apiKey: els.chatKey.value.trim(),
-    model: els.chatModel.value.trim() || 'gpt-4o-mini',
+    model: els.chatModel.value.trim() || 'gpt-5.5',
   };
   settings.image = {
     apiUrl: els.imageUrl.value.trim(),
     apiKey: els.imageKey.value.trim(),
-    model: els.imageModel.value.trim() || 'gpt-image-1',
+    model: els.imageModel.value.trim() || 'gpt-image-2',
   };
   saveData();
   closeSettings();
@@ -596,6 +605,11 @@ function bindEvents() {
   });
 
   els.newChat.addEventListener('click', newConversationHandler);
+  // 移动端抽屉侧边栏开关
+  els.menuBtn.addEventListener('click', () => {
+    document.body.classList.toggle('menu-open');
+  });
+  els.sidebarOverlay.addEventListener('click', closeSidebar);
   els.sendBtn.addEventListener('click', send);
   els.uploadBtn.addEventListener('click', () => els.uploadInput.click());
   els.uploadInput.addEventListener('change', () => handleUploadedFile(els.uploadInput.files[0]));

@@ -6,7 +6,38 @@ import '../styles/global.css';
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chat-image</title>
+  <title>新锐AI生图助手 - AI 智能对话与图片生成</title>
+  <meta name="description" content="新锐AI生图助手是一款免费的在线 AI 工具，支持智能对话问答与 AI 图片生成、图生图编辑。无需安装，浏览器直接使用 GPT 系列模型，快速生成文案、解答问题、创作图片。" />
+  <meta name="keywords" content="AI生图,AI绘图,AI图片生成,图生图,AI对话,智能助手,在线AI工具,新锐AI生图助手" />
+  <meta name="author" content="新锐AI生图助手" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#10a37f" />
+  <link rel="canonical" href="https://chat.xrbk.cn/" />
+  <link rel="icon" href="/favicon.png" />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="新锐AI生图助手" />
+  <meta property="og:title" content="新锐AI生图助手 - AI 智能对话与图片生成" />
+  <meta property="og:description" content="免费的在线 AI 工具，支持智能对话问答与 AI 图片生成、图生图编辑，浏览器直接使用。" />
+  <meta property="og:url" content="https://chat.xrbk.cn/" />
+  <meta property="og:image" content="https://chat.xrbk.cn/favicon.png" />
+  <meta property="og:locale" content="zh_CN" />
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="新锐AI生图助手 - AI 智能对话与图片生成" />
+  <meta name="twitter:description" content="免费的在线 AI 工具，支持智能对话问答与 AI 图片生成、图生图编辑。" />
+  <meta name="twitter:image" content="https://chat.xrbk.cn/favicon.png" />
+  <link rel="sitemap" href="https://chat.xrbk.cn/sitemap.xml" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "新锐AI生图助手",
+    "url": "https://chat.xrbk.cn/",
+    "description": "免费的在线 AI 工具，支持智能对话问答与 AI 图片生成、图生图编辑。",
+    "inLanguage": "zh-CN"
+  }
+  </script>
   <script is:inline>
     // 首屏加载前恢复主题，避免闪烁
     try {
@@ -19,16 +50,24 @@ import '../styles/global.css';
   <div class="layout">
     <!-- 左侧边栏 -->
     <aside class="sidebar">
+      <div class="brand">
+        <img class="brand-logo" src="/favicon.png" alt="新锐AI生图助手" />
+        <span class="brand-name">新锐AI生图助手</span>
+      </div>
       <button class="new-chat-btn" id="new-chat-btn">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
         <span>新对话</span>
       </button>
       <div class="conv-list" id="conv-list"></div>
     </aside>
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
     <!-- 主区域 -->
     <main class="main">
       <header class="topbar">
+        <button class="icon-btn menu-btn" id="menu-btn" title="菜单">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
         <div class="topbar-title" id="topbar-title">新对话</div>
         <div class="topbar-actions">
           <button class="icon-btn" id="theme-toggle" title="切换日夜主题">
@@ -42,7 +81,7 @@ import '../styles/global.css';
 
       <div class="chat-area" id="chat-area">
         <div class="empty-state" id="empty-state">
-          <h1>AI 助手</h1>
+          <h1>新锐AI生图助手</h1>
           <p>开始新的对话，或切换到「生图」模式生成图片</p>
         </div>
         <div class="messages" id="messages"></div>
